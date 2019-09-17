@@ -137,9 +137,6 @@ class ELDaemon(Daemon):
         self._config = config
         Daemon.__init__(self, pid_file)
 
-    def set_config(self, config):
-        self.__config = config
-
     def run(self):
         email_listener = EmailListener()
         email_listener.run(self._config)
@@ -148,6 +145,7 @@ class ELDaemon(Daemon):
 def worker(arguments):
     s = arguments[0]
     x = arguments[1]
+    config = arguments[2]
 
     daemon = ELDaemon('/tmp/daemon-email-listener_'+str(s)+'.pid', config)
 
@@ -169,11 +167,11 @@ if __name__ == "__main__":
         jobs = []
 
         for s in configParser.sections():
-            config=dict()
+            cfg=dict()
             for o in configParser.options(s):
-                config[o] = configParser.get(s, o)
+                cfg[o] = configParser.get(s, o)
 
-            arguments = (s, sys.argv[1])
+            arguments = [s, sys.argv[1], cfg]
             p = multiprocessing.Process(target=worker, args=(arguments, ))
             jobs.append(p)
             p.start()
