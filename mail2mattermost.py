@@ -136,7 +136,7 @@ class EmailListener(object):
 
                     if str(config["mail_tlp"]) != "":
                         msg += self.add_message_field("TLP", config["mail_tlp"])
-                        
+
                     data_dict = {
                         "channel_id": CHANNEL_ID,
                         "message": msg,
@@ -144,9 +144,6 @@ class EmailListener(object):
                     }
                     data_dict["file_ids"] = FILE_IDS
                     data=json.dumps(data_dict)
-
-                    with open("/tmp/asd.txt", 'a+') as file:
-                        file.write(str(data))
 
                     p = s.post(SERVER_URL + '/api/v4/posts', data)
 
