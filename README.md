@@ -1,9 +1,12 @@
 # Mail 2 Mattermost
 
 A python daemon which listens for incoming email messages and pushes them to a defined Mattermost channel.
-The current version only pushes emails with attachments to Mattermost.
+The current version pushes all incoming emails to Mattermost.
 With minor modifications other filter conditions can be written directly inside `mail2mattermost.py`.
 Probably I'll add further filter functionaility to this project at some point.
+
+An email post inside Mattermost could look as follows:
+![Demo](demo.png "Demo")
 
 ### Installation and Configuration
 
@@ -16,6 +19,8 @@ pip3 install -r requirements.txt
 
 All needed configuration have to be made inside the file `mail2mattermost.conf`.
 With adding multiple sections inside the configuration files, multiple email inboxes can be listened to.
+
+With the `mail_*` configurations inside the config file it is possible to define which email fields will be pushed to Mattermost.
 
 ### Usage
 
